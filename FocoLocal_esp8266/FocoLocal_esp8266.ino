@@ -15,7 +15,6 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
-int value = 0;
 
 void setup() {
   pinMode(LedIndicador, OUTPUT);
@@ -61,24 +60,24 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
-  
+  int FocoActual = -1;
   if ((char)payload[0] == 'a' || (char)payload[0] == 'A') {
-    EstadoFoco[0] = true;
+    FocoActual = 0;
   }
   else if ((char)payload[0] == 'b' || (char)payload[0] == 'B') {
-    EstadoFoco[0] = false;
+    FocoActual = 1;
   }
   else if ((char)payload[0] == 'c' || (char)payload[0] == 'C') {
-    EstadoFoco[1] = true;
+    FocoActual = 2;
+  } else {
+    return;
   }
-  else if ((char)payload[0] == 'd' || (char)payload[0] == 'D') {
-    EstadoFoco[1] = false;
+
+  if ((char)payload[1] == '1') {
+    EstadoFoco[FocoActual] = true;
   }
-  else if ((char)payload[0] == 'e' || (char)payload[0] == 'E') {
-    EstadoFoco[2] = true;
-  }
-  else if ((char)payload[0] == 'f' || (char)payload[0] == 'F') {
-    EstadoFoco[2] = false;
+  else if ((char)payload[1] == '0' ) {
+    EstadoFoco[FocoActual] = false;
   }
 }
 
@@ -109,21 +108,18 @@ void loop() {
     reconnect();
   }
   client.loop();
-
- long now = millis();
-  if (now - lastMsg > 2000) {
+  long now = millis();
+  if (now - lastMsg > 5000) {
     lastMsg = now;
-    ++value;
-    snprintf (msg, 75, "Foco ALSW F0-%d F1-%d, F2-%d",EstadoFoco[0],EstadoFoco[1],EstadoFoco[2]);
+    snprintf (msg, 75, "Foco ALSW F0-%d F1-%d, F2-%d", EstadoFoco[0], EstadoFoco[1], EstadoFoco[2]);
     Serial.print("Publish message: ");
     Serial.println(msg);
     client.publish("ALSWout", msg);
   }
-
   digitalWrite(LedIndicador, 1);
-  delay(250);
+  delay(100);
   digitalWrite(LedIndicador, 0);
-  delay(250);
+  delay(100);
 }
 
 void ActualizarFoco() {
@@ -139,6 +135,7 @@ void ActualizarFoco() {
         Serial.print("Apagar " );
       }
       Serial.println(i);
+      return;
     }
   }
 }
@@ -147,9 +144,10 @@ void ActualizarBotones() {
   for (int i = 0; i < 3; i++) {
     if (digitalRead(Boton[i]) == 0) {
       EstadoFoco[i] = !EstadoFoco[i];
-      delay(50);
       while (digitalRead(Boton[i]) == 0) {
+        delay(50);
       }
+      delay(50);
     }
   }
 }
