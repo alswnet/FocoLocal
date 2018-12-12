@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = '583335038:AAErAWHntnMDTd7uArtWvV8tUrPw2Lj9P4A';// @FocoALSWbot
+var token = require('./config.js');
 var mqtt = require('mqtt')
 var client  = mqtt.connect('mqtt://broker.mqtt-dashboard.com')
 
