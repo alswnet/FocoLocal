@@ -1,11 +1,11 @@
 # FocoLocalALSW
-Un sistema automatizado con dómotica para utilizarlo con chatbot, chatbot es la posibilidad de automatizar procesos con mensajería instantanea, en este caso Telegram,aquí para poder encender y apagar las luces de nuestro local mediante un mensaje.
+Un sistema automatizado con dómotica para utilizarlo con chatbot, chatbot es la posibilidad de automatizar procesos con mensajería instantanea, en este caso Telegram, aquí para poder encender y apagar las luces de nuestro local mediante un mensaje.
 
 ## Implementación comunicación MQTT
-Se usa MQTT para realizar la comunicación con un servidor vía Wi-Fi.
+Se conecta el arduino a MQTT, que es un protocolo "machine to machine" que nos permite mandar la información de manera más eficiente para realizar la comunicación con un servidor vía Wi-Fi.
 
 ## Implementación comunicación Serial
-Practicamente lo mismo que el anterior pero este ocupa un cable serial conectado directamente  a tu computadora.
+Para poder comunicarse con el chatbot es necesario conectar el arduino a la computadora mediante un cable USB, y así recibir y envíar información al servidor.
 
 
 # Código
