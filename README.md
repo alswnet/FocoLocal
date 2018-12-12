@@ -1,10 +1,10 @@
 # FocoLocalALSW
-Un sistema automatizado con dómotica para utilizarlo con chatbot, chatbot es la posibilidad de automatizar procesos con mensajería instantanea, en este caso Telegram,aquí para poder encender y apagar las luces de nuestro local mediante un mensaje
+Un sistema automatizado con dómotica para utilizarlo con chatbot, chatbot es la posibilidad de automatizar procesos con mensajería instantanea, en este caso Telegram,aquí para poder encender y apagar las luces de nuestro local mediante un mensaje.
 
-## Foco MQTT
+## Implementación comunicación MQTT
 Se usa MQTT para realizar la comunicación con un servidor vía Wi-Fi.
 
-## Foco puerto Serial
+## Implementación comunicación Serial
 Practicamente lo mismo que el anterior pero este ocupa un cable serial conectado directamente  a tu computadora.
 
 
