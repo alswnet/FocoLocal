@@ -1,4 +1,9 @@
+#ifdef ARDUINO_ARCH_ESP32
+#include <WiFi.h>
+#else
 #include <ESP8266WiFi.h>
+#endif
+
 #include <PubSubClient.h>
 
 #define NoWifi 0
@@ -35,7 +40,7 @@ void setup() {
     pinMode(Foco[i], OUTPUT);
     pinMode(Boton[i], INPUT);
   }
-  pinMode(BUILTIN_LED, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   Serial.println("Iniciando :) ");
 }
@@ -63,9 +68,9 @@ void ActualizarLed() {
     TiempoFoco = millis();
     EstadoLed  = !EstadoLed;
     if (EstadoLed) {
-      digitalWrite(BUILTIN_LED, 1);
+      digitalWrite(LED_BUILTIN, 1);
     } else  {
-      digitalWrite(BUILTIN_LED, 0);
+      digitalWrite(LED_BUILTIN, 0);
     }
   }
 }
@@ -73,6 +78,7 @@ void ActualizarLed() {
 void ActualizarWifi() {
   if (!ConectarWifi) {
     ConectarWifi = true;
+    WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
   }
 
@@ -84,11 +90,13 @@ void ActualizarWifi() {
   else {
     EstadoWifi = Wifi;
   }
+
   if (!ConectarMqtt) {
     client.setServer(mqtt_server, 1883);
     client.setCallback(PreguntarMqtt);
     ConectarMqtt = true;
   }
+
 
   if (!client.loop() && TiempoMqttReconectar + 500 <  millis()) {
     TiempoMqttReconectar =  millis();
@@ -106,7 +114,7 @@ void ActualizarWifi() {
   else {
     EstadoWifi = MqttWifi;
   }
- 
+
   if (TiempoMensaje + 3000 < millis()) {
     TiempoMensaje = millis();
     //snprintf (msg, 75, "%l", EstadoFoco);
@@ -126,6 +134,7 @@ void ActualizarWifi() {
     }
     Serial.println();
   }
+
 }
 
 void ActualizarBotones() {
