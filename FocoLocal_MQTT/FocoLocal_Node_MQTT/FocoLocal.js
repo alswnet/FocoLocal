@@ -5,6 +5,9 @@ const bot = new TelegramBot(config.token, {
   polling: true
 });
 
+// TODO Sistem de cambio con 1 digito
+// TODO Mayuscula y miniscula
+// TODO Estado
 console.log(config.token)
 var client = mqtt.connect('mqtt://broker.mqtt-dashboard.com');
 
