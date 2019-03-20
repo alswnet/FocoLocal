@@ -29,19 +29,19 @@ bot.on('message', (msg) => {
   if (Mensaje == "Encender1" || Mensaje == "E1") {
     client.publish('ALSW/foco1', '1');
     bot.sendMessage(chatId, 'Encendiendo Foco 1');
-  } else if (Mensaje == "Apagar1" || Mensaje == "A2") {
+  } else if (Mensaje == "Apagar1" || Mensaje == "A1") {
     client.publish('ALSW/foco1', '0');
     bot.sendMessage(chatId, 'Apagar Foco 1');
   } else if (Mensaje == "Encender2" || Mensaje == "E2") {
     client.publish('ALSW/foco2', '1');
     bot.sendMessage(chatId, 'Encendiendo Foco 2');
-  } else if (Mensaje == "Apagar2" || Mensaje == "A1") {
+  } else if (Mensaje == "Apagar2" || Mensaje == "A2") {
     client.publish('ALSW/foco2', '0');
     bot.sendMessage(chatId, 'Apagar Foco 2');
   } else if (Mensaje == "Encender3" || Mensaje == "E3") {
     client.publish('ALSW/foco3', '1');
     bot.sendMessage(chatId, 'Encendiendo Foco 3');
-  } else if (Mensaje == "Apagar3" || Mensaje == "A1") {
+  } else if (Mensaje == "Apagar3" || Mensaje == "A3") {
     client.publish('ALSW/foco3', '0');
     bot.sendMessage(chatId, 'Apagar Foco 3');
   } else if (Mensaje == "Encender4" || Mensaje == "E4") {
