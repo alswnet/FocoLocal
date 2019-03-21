@@ -71,13 +71,14 @@ bot.on('message', (msg) => {
     client.publish('ALSW/foco2', '1');
     client.publish('ALSW/foco3', '1');
     bot.sendMessage(chatId, 'Encender Todo');
-  } else if (Mensaje.indexOf("e") == 0) {
-    var NumeroEncender = Mensaje.split(/encender|e| /);
-    console.log("Mensaje " + NumeroEncender[1]);
-    CambiarEstado(chatId, NumeroEncender[1], '1');
-  } else if (Mensaje.indexOf("a") == 0) {
-    var NumeroApagar = Mensaje.split(/apagar|a| /);
-    CambiarEstado(chatId, NumeroApagar[1], '0');
+  } else if (BuscarPalabra(chatId, Mensaje, "encender", '1')) {
+
+  } else if (BuscarPalabra(chatId, Mensaje, "apagar", '0')) {
+
+  } else if (BuscarPalabra(chatId, Mensaje, "e", '1')) {
+
+  } else if (BuscarPalabra(chatId, Mensaje, "a", '0')) {
+
   } else {
     bot.sendMessage(chatId, 'Comandos Disponibles, para mas info \"Ayuda\"');
   }
@@ -87,12 +88,28 @@ bot.on('polling_error', (error) => {
   //console.log("Eror es " + error.code); // => 'EFATAL'
 });
 
+function BuscarPalabra(IDChat, Mensaje, Palabra, Estado) {
+  if (Mensaje.indexOf(Palabra) == 0) {
+    var NumeroEncender = Mensaje.split(Palabra);
+    var NumeroEncender = Number(NumeroEncender[1]);
+    CambiarEstado(IDChat, NumeroEncender, Estado);
+    return true;
+  }
+  return false;
+}
+
 function CambiarEstado(IDChat, Numero, Valor) {
   if (Number(Numero)) {
     Numero = Number(Numero);
     client.publish('ALSW/foco' + Numero, Valor);
-    bot.sendMessage(IDChat, 'Encendiendo Foco ' + Numero);
+    if (Valor == '1') {
+      bot.sendMessage(IDChat, 'Encendiendo Foco ' + Numero);
+      console.log("Encendiendo Foco - " + Numero);
+    } else {
+      bot.sendMessage(IDChat, 'Apagando Foco ' + Numero);
+      console.log("Apagando Foco - " + Numero);
+    }
   } else {
-    bot.sendMessage(IDChat, "\"" + Numero + "\" no es un numero (1-4)");
+    bot.sendMessage(IDChat, "\"" + Numero + "\" no es un numero (1-3)");
   }
 }
