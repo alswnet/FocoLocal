@@ -142,9 +142,9 @@ void ActualizarBotones() {
     if (digitalRead(Boton[i]) == 0) {
       EstadoFoco[i] = !EstadoFoco[i];
       while (digitalRead(Boton[i]) == 0) {
-        delay(50);
+        delay(300);
       }
-      delay(50);
+      delay(300);
     }
   }
 }
