@@ -9,7 +9,7 @@ const bot = new TelegramBot(config.token, {
 
 var Estado = [0, 0, 0, 0, 0];
 var CantidadFoco = 3;
-var client = mqtt.connect('mqtt://broker.mqtt-dashboard.com');
+var client = mqtt.connect('mqtt://broker.shiftr.io');
 
 client.on('connect', function() {
   client.subscribe('ALSW/foco1estado');
