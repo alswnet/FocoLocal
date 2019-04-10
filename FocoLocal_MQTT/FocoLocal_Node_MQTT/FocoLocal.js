@@ -61,15 +61,20 @@ bot.on('message', (msg) => {
       .then(() => {
         return bot.sendMessage(chatId, "Foco 3 - " + Estado[3])
       })
+      .then(() => {
+        return bot.sendMessage(chatId, "Foco 4 - " + Estado[4])
+      })
   } else if (Mensaje == "apagartodo" || Mensaje == "at") {
     client.publish('ALSW/foco1', '0');
     client.publish('ALSW/foco2', '0');
     client.publish('ALSW/foco3', '0');
+    client.publish('ALSW/foco4', '0');
     bot.sendMessage(chatId, 'Apagar Todo');
   } else if (Mensaje == "encendertodo" || Mensaje == "et") {
     client.publish('ALSW/foco1', '1');
     client.publish('ALSW/foco2', '1');
     client.publish('ALSW/foco3', '1');
+    client.publish('ALSW/foco4', '1');
     bot.sendMessage(chatId, 'Encender Todo');
   } else if (BuscarPalabra(chatId, Mensaje, "encender", '1')) {
 
