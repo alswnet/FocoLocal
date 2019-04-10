@@ -3,14 +3,17 @@
 const TelegramBot = require('node-telegram-bot-api');
 var config = require('./config.js');
 var mqtt = require('mqtt');
-const bot = new TelegramBot(config.token, {polling: true});
+const bot = new TelegramBot(config.token, {
+  polling: true
+});
 
 var Estado = [0, 0, 0, 0, 0];
 var CantidadFoco = 3;
-var opciones = { 
-  username:'chepecarlos',
-   password:'secretoespecial'
- };
+var opciones = {
+  username: 'chepecarlos',
+  password: 'secretoespecial',
+  clientId: 'FocoLocal'
+};
 var client = mqtt.connect('mqtt://broker.shiftr.io', opciones);
 
 client.on('connect', function() {

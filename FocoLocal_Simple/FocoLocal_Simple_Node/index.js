@@ -3,7 +3,8 @@ var SerialPort = require('serialport');
 
 var opciones = {
   username: 'chepecarlos',
-  password: 'secretoespecial'
+  password: 'secretoespecial',
+  clientId: 'FocoPortatil'
 }
 var client = mqtt.connect('mqtt://broker.shiftr.io', opciones);
 
