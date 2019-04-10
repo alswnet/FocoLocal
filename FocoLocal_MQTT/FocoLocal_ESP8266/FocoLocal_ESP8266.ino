@@ -23,13 +23,16 @@ boolean ConectarMqtt = false;
 boolean ConectarWifi = false;
 int EstadoWifi = NoWifi;
 
+const char* ssid =  "ALSW";
+const char* password = "2526-4897";
+
 const char* TopicoFoco[4] = {"ALSW/foco1", "ALSW/foco2", "ALSW/foco3"};
 const char* TopicoFocoEstado[4] = {"ALSW/foco1estado", "ALSW/foco2estado", "ALSW/foco3estado"};
 const char* TopicoMensaje = "ALSW/mensaje";
 
-const char* ssid = "ALSW";
-const char* password = "2526-4897";
-const char* mqtt_server = "broker.mqtt-dashboard.com";
+const char* usuario = "chepecarlos";
+const char* pass = "secretoespecial";
+const char* mqtt_server = "broker.shiftr.io";
 char msg[50];
 
 WiFiClient espClient;
@@ -101,7 +104,7 @@ void ActualizarWifi() {
   if (!client.loop() && TiempoMqttReconectar + 500 <  millis()) {
     TiempoMqttReconectar =  millis();
     Serial.print("Activando mqtt");
-    if (client.connect("ALSWFoco")) {//Cambiar por un nombre unico para no tener poblemas
+    if (client.connect("ALSWFoco", usuario, pass)) {//Cambiar por un nombre unico para no tener poblemas
       Serial.println("... Conectado");
       for (int i = 0; i < 3; i++) {
         client.subscribe(TopicoFoco[i]);
