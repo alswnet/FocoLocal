@@ -17,10 +17,10 @@ var opciones = {
 var client = mqtt.connect('mqtt://broker.shiftr.io', opciones);
 
 client.on('connect', function() {
-  client.subscribe('ALSW/foco1estado');
-  client.subscribe('ALSW/foco2estado');
-  client.subscribe('ALSW/foco3estado');
-  client.subscribe('ALSW/foco4estado');
+  client.subscribe('ALSW/foco/estado/1');
+  client.subscribe('ALSW/foco/estado/2');
+  client.subscribe('ALSW/foco/estado/3');
+  client.subscribe('ALSW/foco/estado/4');
 })
 
 client.on('message', function(topic, message) {
@@ -70,16 +70,16 @@ bot.on('message', (msg) => {
         return bot.sendMessage(chatId, "Foco 4 - " + Estado[4])
       })
   } else if (Mensaje == "apagartodo" || Mensaje == "at") {
-    client.publish('ALSW/foco1', '0');
-    client.publish('ALSW/foco2', '0');
-    client.publish('ALSW/foco3', '0');
-    client.publish('ALSW/foco4', '0');
+    client.publish('ALSW/foco/mensaje/1', '0');
+    client.publish('ALSW/foco/mensaje/2', '0');
+    client.publish('ALSW/foco/mensaje/3', '0');
+    client.publish('ALSW/foco/mensaje/4', '0');
     bot.sendMessage(chatId, 'Apagar Todo');
   } else if (Mensaje == "encendertodo" || Mensaje == "et") {
-    client.publish('ALSW/foco1', '1');
-    client.publish('ALSW/foco2', '1');
-    client.publish('ALSW/foco3', '1');
-    client.publish('ALSW/foco4', '1');
+    client.publish('ALSW/foco/mensaje/1', '1');
+    client.publish('ALSW/foco/mensaje/2', '1');
+    client.publish('ALSW/foco/mensaje/3', '1');
+    client.publish('ALSW/foco/mensaje/4', '1');
     bot.sendMessage(chatId, 'Encender Todo');
   } else if (BuscarPalabra(chatId, Mensaje, "encender", '1')) {
 
@@ -111,7 +111,7 @@ function BuscarPalabra(IDChat, Mensaje, Palabra, Estado) {
 function CambiarEstado(IDChat, Numero, Valor) {
   if (Number(Numero)) {
     Numero = Number(Numero);
-    client.publish('ALSW/foco' + Numero, Valor);
+    client.publish('ALSW/foco/mensaje/' + Numero, Valor);
     if (Valor == '1') {
       bot.sendMessage(IDChat, 'Encendiendo Foco ' + Numero);
       console.log("Encendiendo Foco - " + Numero);
