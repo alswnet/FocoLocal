@@ -25,7 +25,6 @@ int EstadoWifi = NoWifi;
 
 const char* ssid =  "ALSW";
 const char* password = "2526-4897";
-
 const char* TopicoFoco[4] = {"ALSW/foco/mensaje/1", "ALSW/foco/mensaje/2", "ALSW/foco/mensaje/3"};
 const char* TopicoFocoEstado[4] = {"ALSW/foco/estado/1", "ALSW/foco/estado/2", "ALSW/foco/estado/3"};
 
@@ -99,25 +98,23 @@ void ActualizarWifi() {
     ConectarMqtt = true;
   }
 
-
-  if (!client.loop() && TiempoMqttReconectar + 500 <  millis()) {
+  if (EstadoWifi >= Wifi && !client.loop() && TiempoMqttReconectar + 500 <  millis()) {
     TiempoMqttReconectar =  millis();
     Serial.print("Activando mqtt");
-    if (client.connect("ALSWFoco")) {//Cambiar por un nombre unico para no tener poblemas
+    if (client.connect("ALSWFOCO")) {//Cambiar por un nombre unico para no tener poblemas
       Serial.println("... Conectado");
       for (int i = 0; i < 3; i++) {
         client.subscribe(TopicoFoco[i]);
       }
+      EstadoWifi = MqttWifi;
     } else {
       Serial.print(" error, rc=");
       Serial.println(client.state());
+      EstadoWifi = Wifi;
     }
   }
-  else {
-    EstadoWifi = MqttWifi;
-  }
 
-  if (TiempoMensaje + 3000 < millis()) {
+  if (TiempoMensaje + 3000 < millis() && EstadoWifi == MqttWifi) {
     TiempoMensaje = millis();
     //snprintf (msg, 75, "%l", EstadoFoco);
     Serial.print("Estado");
@@ -136,7 +133,6 @@ void ActualizarWifi() {
     }
     Serial.println();
   }
-
 }
 
 void ActualizarBotones() {
@@ -152,7 +148,7 @@ void ActualizarBotones() {
 }
 
 void PreguntarMqtt(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Mensaje recivido [");
+  Serial.print("Mensaje recibido [");
   Serial.print(topic);
   Serial.print("] ");
 
@@ -170,7 +166,6 @@ void PreguntarMqtt(char* topic, byte* payload, unsigned int length) {
       FocoMensaje = i;
     }
   }
-
 
   if (FocoMensaje > -1 ) {
     if ((char)payload[0] == '1') {
