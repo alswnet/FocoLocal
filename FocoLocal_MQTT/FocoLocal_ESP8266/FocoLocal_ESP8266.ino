@@ -23,9 +23,11 @@ boolean ConectarMqtt = false;
 boolean ConectarWifi = false;
 int EstadoWifi = NoWifi;
 
-const char* TopicoFoco[4] = {"ALSW/foco1", "ALSW/foco2", "ALSW/foco3"};
-const char* TopicoFocoEstado[4] = {"ALSW/foco1estado", "ALSW/foco2estado", "ALSW/foco3estado"};
-const char* TopicoMensaje = "ALSW/mensaje";
+const char* ssid =  "ALSW";
+const char* password = "2526-4897";
+
+const char* TopicoFoco[4] = {"ALSW/foco/mensaje/1", "ALSW/foco/mensaje/2", "ALSW/foco/mensaje/3"};
+const char* TopicoFocoEstado[4] = {"ALSW/foco/estado/1", "ALSW/foco/estado/2", "ALSW/foco/estado/3"};
 
 const char* usuario = "chepecarlos";
 const char* pass = "secretoespecial";
@@ -150,7 +152,7 @@ void ActualizarBotones() {
 }
 
 void PreguntarMqtt(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Mensaje recivido [");
+  Serial.print("Mensaje recibido [");
   Serial.print(topic);
   Serial.print("] ");
 
