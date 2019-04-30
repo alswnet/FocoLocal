@@ -152,7 +152,7 @@ void ActualizarBotones() {
 }
 
 void PreguntarMqtt(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Mensaje recibido [");
+  Serial.print("Mensaje recivido [");
   Serial.print(topic);
   Serial.print("] ");
 
