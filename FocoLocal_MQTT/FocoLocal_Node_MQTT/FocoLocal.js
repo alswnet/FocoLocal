@@ -24,7 +24,7 @@ client.on('connect', function() {
 })
 
 client.on('message', function(topic, message) {
-  var IDTopic = topic.substring(9, 10);
+  var IDTopic = topic.substring(17, 18);
   IDTopic = Number(IDTopic);
   if (message.toString() == "1") {
     Estado[IDTopic] = "Encendido"
