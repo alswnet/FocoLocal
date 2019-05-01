@@ -12,7 +12,7 @@ var CantidadFoco = 3;
 var opciones = {
   username: 'chepecarlos',
   password: 'secretoespecial',
-  clientId: 'FocoLocal'
+  clientId: 'ServidorFocoLocal'
 };
 var client = mqtt.connect('mqtt://broker.shiftr.io', opciones);
 
