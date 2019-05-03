@@ -23,8 +23,8 @@ boolean ConectarMqtt = false;
 boolean ConectarWifi = false;
 int EstadoWifi = NoWifi;
 
-const char* ssid =  "ALSW2";
-const char* password = "7210-3607";
+const char* ssid =  "ALSW";
+const char* password = "2526-4897";
 //const char* ssid =  "ALSW";
 //const char* password = "2526-4897";
 const String TopicoFocoMensaje[4] = {"/ALSW/foco/mensaje/1", "/ALSW/foco/mensaje/2", "/ALSW/foco/mensaje/3"};
@@ -46,10 +46,10 @@ WiFiClient ESP_Cliente;
 MQTTClient client;
 
 void setup() {
-  //for (int i = 0; i < 3; i++) {
-  //    pinMode(Foco[i], OUTPUT);
-  //    pinMode(Boton[i], INPUT);
-  // }
+  for (int i = 0; i < 3; i++) {
+    pinMode(Foco[i], OUTPUT);
+    pinMode(Boton[i], INPUT);
+  }
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   Serial.println("Iniciando :) ");

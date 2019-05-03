@@ -1,8 +1,11 @@
 int Foco = 13;
+int Boton = 2;
+int EstadoBotonAnterior = 0;
 boolean EstadoFoco = false;
 
 void setup() {
   pinMode(Foco, OUTPUT);
+  pinMode(Boton, INPUT_PULLUP);
   digitalWrite(Foco, EstadoFoco);
   Serial.begin(9600);
 }
@@ -18,11 +21,23 @@ void loop() {
     }
     digitalWrite(Foco, EstadoFoco);
   }
+
+  int EstadoBoton = digitalRead( Boton );
+  if (EstadoBoton  != EstadoBotonAnterior) {
+    EstadoBotonAnterior = EstadoBoton;
+    if (EstadoBoton) {
+      EstadoFoco = false;
+    } else {
+      EstadoFoco = true;
+    }
+    digitalWrite(Foco, EstadoFoco);
+  }
+
   if (EstadoFoco) {
     Serial.println("H");
   }
   else {
     Serial.println("L");
   }
-  delay(1000);
+  delay(500);
 }

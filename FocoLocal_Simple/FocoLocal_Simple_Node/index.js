@@ -19,16 +19,15 @@ Arduino.on('data', function(data) {
 
   for (var i = 0; i < data.length; i++) {
     if (data[i] == "H") {
-      client.publish('ALSW/foco4estado', '1');
+      client.publish('ALSW/foco/estado/4', '1');
     } else if (data[i] == "L") {
-      client.publish('ALSW/foco4estado', '0');
+      client.publish('ALSW/foco/estado/4', '0');
     }
   }
 });
 
 client.on('connect', function() {
-  client.subscribe('ALSW/foco4', function(err) {})
-
+  client.subscribe('ALSW/foco/mensaje/4', function(err) {})
 })
 
 client.on('message', function(topic, message) {
